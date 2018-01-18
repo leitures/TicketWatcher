@@ -18,13 +18,18 @@ TICKETWATCHER.prototype.getDocument = function(pageurl) {
       result += data;
     });
     req.on('end', function() {
-      var resultJson = JSON.parse(result);
-      if (resultJson.data.sale_flag != '不可售' && resultJson.data.banner) {
-        sendMessage();
-      } else {
-        var date = new Date();
-        console.log('还未开售', date);
+      try {
+        var resultJson = JSON.parse(result);
+        if (resultJson.data.sale_flag != '不可售' && resultJson.data.banner) {
+          sendMessage();
+        } else {
+          var date = new Date();
+          console.log('还未开售', date);
+        }
+      } catch (e) {
+        return console.error(e);
       }
+
     });
   });
 }
