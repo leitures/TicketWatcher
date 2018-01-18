@@ -18,6 +18,9 @@ TICKETWATCHER.prototype.getDocument = function(pageurl) {
       var resultJson = JSON.parse(result);
       if (resultJson.data.sale_flag != '不可售') {
         sendMessage();
+      }else{
+        var date = new Date();
+        console.log('还未开售',date);
       }
     });
   });
