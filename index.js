@@ -44,9 +44,10 @@ TICKETWATCHER.prototype.checkEvent = function(pageurl) {
       try {
         var resultJson = JSON.parse(result);
         if (resultJson.data.result.length > 0) {
+          console.log('bilibili上架了',resultJson.data.result.length);
           sendMessage();
         } else {
-          console.log('bilibili还没上架');
+          console.log('bilibili还没上架',resultJson.data.result.length);
         }
       } catch (e) {
         return console.error(e);
@@ -74,10 +75,10 @@ TICKETWATCHER.prototype.checkEventOnDaMai = function(keyword) {
   }, function(error, response, body) {
     try {
       if (body.keywordHitVo.length > 0) {
-        console.log('大麦上架了');
+        console.log('大麦上架了',body.keywordHitVo.length);
         sendMessage();
       } else {
-        console.log('大麦还没上架');
+        console.log('大麦还没上架',body.keywordHitVo.length);
       };
     } catch (e) {
       return console.error(e);
