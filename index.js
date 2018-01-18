@@ -16,11 +16,28 @@ TICKETWATCHER.prototype.getDocument = function(pageurl) {
     });
     req.on('end', function() {
       var resultJson = JSON.parse(result);
-      if (resultJson.data.sale_flag != '不可售') {
+      if (resultJson.data.sale_flag != '不可售' && resultJson.data.banner) {
         sendMessage();
       }else{
         var date = new Date();
         console.log('还未开售',date);
+      }
+    });
+  });
+}
+
+TICKETWATCHER.prototype.checkEvent = function(pageurl) {
+  https.get(pageurl, function(req, res) {
+    var result = '';
+    req.on('data', function(data) {
+      result += data;
+    });
+    req.on('end', function() {
+      var resultJson = JSON.parse(result);
+      if (resultJson.data.result.length>0) {
+        sendMessage();
+      }else{
+        console.log('还没上架');
       }
     });
   });
